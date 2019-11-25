@@ -18,7 +18,7 @@ namespace BLL.Services
             this.uow = uow;
         }
 
-        public async Task<List<UserDTO>> GetAllUser()
+        public async Task<List<UserDTO>> GetAllUsers()
         {
             List<UserDTO> users = AutoMapper.Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await uow.User.GetAll()).ToList();
             return users;
@@ -55,6 +55,16 @@ namespace BLL.Services
         public async Task<UserDTO> GetUserById(int id)
         {
             return AutoMapper.Mapper.Map<User, UserDTO>(await uow.User.GetById(id));
+        }
+
+        public async Task<UserDTO> GetUserByLogin(string login)
+        {
+            return AutoMapper.Mapper.Map<User, UserDTO>((await uow.User.GetAll(x => x.Login == login)).FirstOrDefault());
+        }
+
+        public async Task<bool> CheckLoginExist(string login)
+        {
+            return (await uow.User.GetAll(x => x.Login == login)).Any();
         }
 
         public void Dispose()

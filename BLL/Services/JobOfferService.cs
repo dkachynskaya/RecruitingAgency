@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace BLL.Services
 {
@@ -24,12 +25,12 @@ namespace BLL.Services
 
             if (jobOffers == null)
                 throw new ArgumentException("Not found");
-            return AutoMapper.Mapper.Map<IEnumerable<JobOffer>, IEnumerable<JobOfferDTO>>(jobOffers).ToList();
+            return Mapper.Map<IEnumerable<JobOffer>, IEnumerable<JobOfferDTO>>(jobOffers).ToList();
         }
 
         public async Task AddJobOffer(JobOfferDTO jobOfferDTO)
         {
-            var jobOffer = AutoMapper.Mapper.Map<JobOfferDTO, JobOffer>(jobOfferDTO);
+            var jobOffer = Mapper.Map<JobOfferDTO, JobOffer>(jobOfferDTO);
             if (jobOffer.PositionDescription != null)
             {
                 await uow.JobOffer.Post(jobOffer);
@@ -40,7 +41,7 @@ namespace BLL.Services
 
         public async Task EditJobOffer(JobOfferDTO jobOfferDTO)
         {
-            var jobOffer = AutoMapper.Mapper.Map<JobOfferDTO, JobOffer>(jobOfferDTO);
+            var jobOffer = Mapper.Map<JobOfferDTO, JobOffer>(jobOfferDTO);
             if (jobOffer.UserId != 0)
             {
                 await uow.JobOffer.Update(jobOffer);
@@ -59,13 +60,13 @@ namespace BLL.Services
             var jobOffer = await uow.JobOffer.GetById(id);
             if (jobOffer == null)
                 throw new ArgumentException("Not found");
-            return AutoMapper.Mapper.Map<JobOffer, JobOfferDTO>(jobOffer);
+            return Mapper.Map<JobOffer, JobOfferDTO>(jobOffer);
         }
 
         public async Task<IEnumerable<JobOfferDTO>> GetJobOffersByUserId (int userId)
         {
             var jobOffers = (await uow.JobOffer.GetAll(x => x.UserId == userId)).OrderByDescending(x => x.CreateDate).ToList();
-            return AutoMapper.Mapper.Map<IEnumerable<JobOffer>, IEnumerable<JobOfferDTO>>(jobOffers);
+            return Mapper.Map<IEnumerable<JobOffer>, IEnumerable<JobOfferDTO>>(jobOffers);
         }
 
         public void Dispose()

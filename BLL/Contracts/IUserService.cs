@@ -9,9 +9,11 @@ namespace BLL.Contracts
 {
     public interface IUserService: IDisposable
     {
-        Task<List<UserDTO>> GetAllUser();
+        Task<List<UserDTO>> GetAllUsers();
         Task Update(UserDTO user);
         Task Delete(int userId);
-        Task<UserDTO> GetUserById(int id);      
+        Task<UserDTO> GetUserById(int id);
+        Task<UserDTO> GetUserByLogin(string login);
+        Task<bool> CheckLoginExist(string login);
     }
 }

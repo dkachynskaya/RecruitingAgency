@@ -1,6 +1,7 @@
 ﻿using BLL.Contracts;
 using BLL.DTOs;
 using BLL.Infrastructure;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
