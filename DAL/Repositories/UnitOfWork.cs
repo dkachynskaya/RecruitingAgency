@@ -16,6 +16,7 @@ namespace DAL.Repositories
 
         private GenericRepository<User> users;
         private GenericRepository<Ad> ads;
+        private GenericRepository<Category> categories;
 
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
@@ -46,6 +47,18 @@ namespace DAL.Repositories
                     ads = new GenericRepository<Ad>(context);
                 }
                 return ads;
+            }
+        }
+
+        public IGenericRepository<Category> Category
+        {
+            get
+            {
+                if (categories == null)
+                {
+                    categories = new GenericRepository<Category>(context);
+                }
+                return categories;
             }
         }
 

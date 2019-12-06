@@ -69,6 +69,12 @@ namespace BLL.Services
             return Mapper.Map<IEnumerable<Ad>, IEnumerable<AdDTO>>(ads);
         }
 
+        public async Task<IEnumerable<AdDTO>> GetAdsByCategoryId(int categoryId)
+        {
+            var ads = (await uow.Ad.GetAll(x => x.CategoryId == categoryId)).OrderByDescending(x => x.CreateDate).ToList();
+            return Mapper.Map<IEnumerable<Ad>, IEnumerable<AdDTO>>(ads);
+        }
+
         public void Dispose()
         {
             uow.Dispose();

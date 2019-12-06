@@ -13,6 +13,7 @@ namespace BLL.Services
         private readonly IUnitOfWork uow;
         private AdminService adminService;
         private AdService adService;
+        private CategoryService categoryService;
         private ModeratorService moderatorService;
         private UserManagerService userManagerService;
         private UserService userService;
@@ -79,6 +80,18 @@ namespace BLL.Services
                     adService = new AdService(uow);
                 }
                 return adService;
+            }
+        }
+
+        public ICategoryService CategoryService
+        {
+            get
+            {
+                if (categoryService == null)
+                {
+                    categoryService = new CategoryService(uow);
+                }
+                return categoryService;
             }
         }
 

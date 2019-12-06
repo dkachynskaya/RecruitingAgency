@@ -11,5 +11,6 @@ namespace WebApi.Models.JobOffer
         public string Location { get; set; }
         public string Company { get; set; }
         public string PositionDescription { get; set; }
+        public int CategoryId { get; set; }
     }
 }

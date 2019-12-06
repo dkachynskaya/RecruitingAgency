@@ -15,5 +15,6 @@ namespace BLL.Contracts
         Task DeleteAd(int adId);
         Task<AdDTO> GetAdById(int adId);
         Task<IEnumerable<AdDTO>> GetAdsByUserId(int userid);
+        Task<IEnumerable<AdDTO>> GetAdsByCategoryId(int categoryId);
     }
 }

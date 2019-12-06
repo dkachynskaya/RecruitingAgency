@@ -72,6 +72,13 @@ namespace DAL.EF
             var result3 = userManager.Create(moderator, "qwerty123");
             context.SaveChanges();
 
+            var cat = new Category()
+            {
+                Name = "IT"
+            };
+            context.Categories.Add(cat);
+            context.SaveChanges();
+
             var ad = new Ad()
             {
                 PositionName = "Waiter",
@@ -79,7 +86,8 @@ namespace DAL.EF
                 Company = "Cafe",
                 PositionDescription = "Description",
                 UserId = 1,
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                CategoryId = 1
             };
             context.Ads.Add(ad);
             context.SaveChanges();

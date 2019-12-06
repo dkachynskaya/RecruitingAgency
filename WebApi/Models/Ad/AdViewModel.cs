@@ -16,7 +16,10 @@ namespace WebApi.Models.JobOffer
         
         public int UseId { get; set; }
         public virtual ProfileViewModel User { get; set; }
+
         public DateTime? CreateDate { get; set; }
         public bool IsBlocked { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

@@ -14,7 +14,7 @@ using WebApi.Models.JobOffer;
 namespace WebApi.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/jobOffers")]
+    [RoutePrefix("api/ads")]
     public class AdController : ApiController
     {
         private readonly IUnitOfWorkBLL uow;
@@ -61,13 +61,29 @@ namespace WebApi.Controllers
             return Ok(Ads);
         }
 
+        [HttpGet]
+        [Route("getAds/{categoryId}")]
+        public async Task<IHttpActionResult> GetAllAdsByCategoryId([FromUri]int categoryId)
+        {
+            var ads = (await uow.AdService.GetAdsByCategoryId(categoryId)).ToList();
+            if (ads == null)
+                NotFound();  //code 404         
+
+            IEnumerable<AdViewModel> Ads = AutoMapper.Mapper.Map<IEnumerable<AdDTO>, List<AdViewModel>>(ads);
+            return Ok(Ads);
+        }
+
         [HttpPost]
-        [Route("add")]
-        public async Task<IHttpActionResult> AddAd()
+        [Route("add/{categoryId}")]
+        public async Task<IHttpActionResult> AddAd([FromUri]int categoryId)
         {
             var authtor = await uow.UserService.GetUserById(User.Identity.GetUserId<int>());
             if (authtor == null)
                 return this.Unauthorized();
+
+            CategoryDTO category = await uow.CategoryService.GetCategoryById(categoryId);
+            if (category == null)
+                return NotFound();
 
             if (authtor.IsBlocked)
                 return BadRequest("Your account blocked.");
@@ -85,6 +101,7 @@ namespace WebApi.Controllers
                 PositionDescription = positionDescription,
                 CreateDate = DateTime.Now,
                 UserId = authtor.Id,
+                CategoryId = categoryId
             };
 
             if (!this.ModelState.IsValid)
@@ -120,6 +137,7 @@ namespace WebApi.Controllers
             ad.Company = newAd.Company;
             ad.PositionDescription = newAd.PositionDescription;
             ad.User = null;
+            ad.Category = null;
 
             await uow.AdService.EditAd(ad);
             return Ok("Ad is edited");

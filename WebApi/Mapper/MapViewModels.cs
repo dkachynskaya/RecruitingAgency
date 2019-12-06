@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApi.Models.Account;
+using WebApi.Models.Category;
 using WebApi.Models.JobOffer;
 using WebApi.Models.User;
 
@@ -19,6 +20,9 @@ namespace WebApi.Mapper
 
             CreateMap<AdDTO, AdViewModel>();
             CreateMap<AdEditViewModel, AdDTO>();
+
+            CreateMap<CategoryDTO, CategoryViewModel>();
+            CreateMap<CategoryEditViewModel, CategoryDTO>();
         }
     }
 }

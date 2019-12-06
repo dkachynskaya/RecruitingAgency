@@ -15,6 +15,7 @@ namespace DAL.Contracts
 
         IGenericRepository<User> User { get; }
         IGenericRepository<Ad> Ad { get; }
+        IGenericRepository<Category> Category { get; }
 
         Task Save();
     }

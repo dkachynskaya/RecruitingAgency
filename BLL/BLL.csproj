@@ -68,11 +68,13 @@
   <ItemGroup>
     <Compile Include="Contracts\IAdminService.cs" />
     <Compile Include="Contracts\IAdService.cs" />
+    <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\IModeratorService.cs" />
     <Compile Include="Contracts\IUnitOfWorkBLL.cs" />
     <Compile Include="Contracts\IUserManagerService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="DTOs\AdDTO.cs" />
+    <Compile Include="DTOs\CategoryDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="Infrastructure\DIResolver.cs" />
     <Compile Include="Infrastructure\MapDTOModels.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\AdService.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ModeratorService.cs" />
     <Compile Include="Services\UnitOfWorkBLL.cs" />
     <Compile Include="Services\UserManagerService.cs" />

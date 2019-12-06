@@ -18,5 +18,8 @@ namespace BLL.DTOs
 
         public int UserId { get; set; }
         public virtual UserDTO User { get; set; }
+
+        public int CategoryId { get; set; }
+        public virtual CategoryDTO Category { get; set; }
     }
 }
