@@ -23,7 +23,7 @@ namespace WebApi.Models.User
         [Display(Name = "Email:")]
         public string Email { get; set; }
 
-        public List<JobOfferViewModel> JobOffers { get; set; }
+        public List<AdViewModel> Ads { get; set; }
 
         public DateTime? RegistrationDate { get; set; }
 

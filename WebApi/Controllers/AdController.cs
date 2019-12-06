@@ -15,56 +15,55 @@ namespace WebApi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/jobOffers")]
-    public class JobOfferController : ApiController
+    public class AdController : ApiController
     {
         private readonly IUnitOfWorkBLL uow;
 
-        public JobOfferController(IUnitOfWorkBLL uow)
+        public AdController(IUnitOfWorkBLL uow)
         {
             this.uow = uow;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("getalljoboffers")]
-        public async Task<IHttpActionResult> GetAllJobOffers()
+        [Route("ads")]
+        public async Task<IHttpActionResult> GetAllAds()
         {
-
-            var jobOffers = (await uow.JobOfferService.GetAllJobOffers()).ToList();
-            jobOffers.RemoveAll(x => x.IsActual == true);      
-            if (jobOffers == null)
+            var ads = (await uow.AdService.GetAllAds()).ToList();
+            ads.RemoveAll(x => x.IsBlocked == true);      
+            if (ads == null)
                 NotFound();  //code 404         
 
-            IEnumerable<JobOfferViewModel> JobOffers = AutoMapper.Mapper.Map<IEnumerable<JobOfferDTO>, List<JobOfferViewModel>>(jobOffers);
-            return Ok(JobOffers);
+            IEnumerable<AdViewModel> Ads = AutoMapper.Mapper.Map<IEnumerable<AdDTO>, List<AdViewModel>>(ads);
+            return Ok(Ads);
         }
 
         [HttpGet]
-        [Route("{jobOffersId}")]
-        public async Task<IHttpActionResult> GetJobOfferById(int jobOfferId)
+        [Route("{adId}")]
+        public async Task<IHttpActionResult> GetAdById(int adId)
         {
-            var jobOffer = (await uow.JobOfferService.GetJobOfferById(jobOfferId));
-            if (jobOffer == null)
+            var ad = (await uow.AdService.GetAdById(adId));
+            if (ad == null)
                 NotFound();  //code 404         
-            JobOfferViewModel JobOffer = AutoMapper.Mapper.Map<JobOfferDTO, JobOfferViewModel>(jobOffer);
-            return Ok(JobOffer);
+            AdViewModel Ad = AutoMapper.Mapper.Map<AdDTO, AdViewModel>(ad);
+            return Ok(Ad);
         }
 
         [HttpGet]
-        [Route("getalljobOfferModer")]
-        public async Task<IHttpActionResult> GetAllJobOfferModer()
+        [Route("getalladsModer")]
+        public async Task<IHttpActionResult> GetAllAdsModer()
         {
-            var jobOffers = (await uow.JobOfferService.GetAllJobOffers()).ToList();
-            if (jobOffers == null)
+            var ads = (await uow.AdService.GetAllAds()).ToList();
+            if (ads == null)
                 NotFound();  //code 404         
 
-            IEnumerable<JobOfferViewModel> JobOffers = AutoMapper.Mapper.Map<IEnumerable<JobOfferDTO>, List<JobOfferViewModel>>(jobOffers);
-            return Ok(JobOffers);
+            IEnumerable<AdViewModel> Ads = AutoMapper.Mapper.Map<IEnumerable<AdDTO>, List<AdViewModel>>(ads);
+            return Ok(Ads);
         }
 
         [HttpPost]
         [Route("add")]
-        public async Task<IHttpActionResult> AddJobOffer()
+        public async Task<IHttpActionResult> AddAd()
         {
             var authtor = await uow.UserService.GetUserById(User.Identity.GetUserId<int>());
             if (authtor == null)
@@ -75,10 +74,10 @@ namespace WebApi.Controllers
 
             var httpRequest = HttpContext.Current.Request;  //get request object   
 
-            string positionDescriptionCode = httpRequest.Params["JobOffer"];
+            string positionDescriptionCode = httpRequest.Params["Ad"];
             string positionDescription = Base64Decode(positionDescriptionCode); //decoding string with html tag
 
-            JobOfferDTO jO = new JobOfferDTO
+            AdDTO ad = new AdDTO
             {
                 PositionName = httpRequest.Params["PositionName"],
                 Location = httpRequest.Params["Location"],
@@ -91,13 +90,13 @@ namespace WebApi.Controllers
             if (!this.ModelState.IsValid)
                 return BadRequest(this.ModelState);
 
-            await uow.JobOfferService.AddJobOffer(jO);
-            return Content(HttpStatusCode.Created, "JobOffer is added");
+            await uow.AdService.AddAd(ad);
+            return Content(HttpStatusCode.Created, "Ad is added");
         }
 
         [HttpPut]
-        [Route("{jobOfferId}")]
-        public async Task<IHttpActionResult> EditJobOffer([FromUri]int jobOfferId, [FromBody] JobOfferEditViewModel newJobOffer)
+        [Route("{adId}")]
+        public async Task<IHttpActionResult> EditAd([FromUri]int adId, [FromBody] AdEditViewModel newAd)
         {
             var authtor = await uow.UserService.GetUserById(User.Identity.GetUserId<int>());
             if (authtor == null)
@@ -106,29 +105,29 @@ namespace WebApi.Controllers
             if (authtor.IsBlocked)
                 return BadRequest("Your account is blocked.");
 
-            JobOfferDTO jobOffer = await uow.JobOfferService.GetJobOfferById(jobOfferId);
-            if (jobOffer == null)
+            AdDTO ad = await uow.AdService.GetAdById(adId);
+            if (ad == null)
                 return NotFound();
 
-            if (jobOffer.User.Id != authtor.Id)
+            if (ad.User.Id != authtor.Id)
                 return BadRequest("It is not your post.");
 
-            if (jobOffer.IsActual)
-                return BadRequest("JobOffer is blocked.");
+            if (ad.IsBlocked)
+                return BadRequest("As is blocked.");
 
-            jobOffer.PositionName = newJobOffer.PositionName;
-            jobOffer.Location = newJobOffer.Location;
-            jobOffer.Company = newJobOffer.Company;
-            jobOffer.PositionDescription = newJobOffer.PositionDescription;
-            jobOffer.User = null;
+            ad.PositionName = newAd.PositionName;
+            ad.Location = newAd.Location;
+            ad.Company = newAd.Company;
+            ad.PositionDescription = newAd.PositionDescription;
+            ad.User = null;
 
-            await uow.JobOfferService.EditJobOffer(jobOffer);
-            return Ok("JobOffer is edited");
+            await uow.AdService.EditAd(ad);
+            return Ok("Ad is edited");
         }
 
         [HttpDelete]
-        [Route("{jobOfferId}")]
-        public async Task<IHttpActionResult> DeleteJobOffer([FromUri]int jobOfferId)
+        [Route("{adId}")]
+        public async Task<IHttpActionResult> DeleteAd([FromUri]int adId)
         {
             var authtor = await uow.UserService.GetUserById(User.Identity.GetUserId<int>());
             if (authtor == null)
@@ -137,18 +136,18 @@ namespace WebApi.Controllers
             if (authtor.IsBlocked)
                 return BadRequest("Your account blocked.");
 
-            JobOfferDTO jobOffer = await uow.JobOfferService.GetJobOfferById(jobOfferId);
-            if (jobOffer == null)
+            AdDTO ad = await uow.AdService.GetAdById(adId);
+            if (ad == null)
                 return NotFound();
 
-            if (jobOffer.User.Id != authtor.Id)
+            if (ad.User.Id != authtor.Id)
                 return BadRequest("It is not your post.");
 
             if (!this.ModelState.IsValid)
                 return BadRequest(this.ModelState);
 
-            await uow.JobOfferService.DeleteJobOffer(jobOfferId);
-            return Ok("JobOffer is deleted");
+            await uow.AdService.DeleteAd(adId);
+            return Ok("Ad is deleted");
         }
 
         public static string Base64Decode(string base64EncodedData)

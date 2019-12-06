@@ -17,7 +17,7 @@ namespace BLL.DTOs
         public bool IsBlocked { get; set; }
         public DateTime? RegistrationDate { get; set; }
 
-        public virtual ICollection<JobOffer> JobOffers { get; set; }
+        public virtual ICollection<Ad> Ads { get; set; }
         public List<string> Roles { get; set; }
     }
 }

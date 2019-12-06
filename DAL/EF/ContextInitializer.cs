@@ -72,7 +72,7 @@ namespace DAL.EF
             var result3 = userManager.Create(moderator, "qwerty123");
             context.SaveChanges();
 
-            var jobOffer = new JobOffer()
+            var ad = new Ad()
             {
                 PositionName = "Waiter",
                 Location = "Kiev",
@@ -81,7 +81,7 @@ namespace DAL.EF
                 UserId = 1,
                 CreateDate = DateTime.Now
             };
-            context.JobOffers.Add(jobOffer);
+            context.Ads.Add(ad);
             context.SaveChanges();
 
             if(result.Succeeded && result2.Succeeded && result3.Succeeded)

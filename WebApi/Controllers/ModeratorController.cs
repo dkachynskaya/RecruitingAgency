@@ -23,16 +23,16 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("block/jobOffers/{jobOfferId}")]
-        public async Task<IHttpActionResult> BlockJobOffer([FromUri]int jobOfferId)
+        [Route("block/ads/{adId}")]
+        public async Task<IHttpActionResult> BlockAd([FromUri]int adId)
         {
 
-            JobOfferDTO jobOffer = await uow.JobOfferService.GetJobOfferById(jobOfferId);
-            if (jobOffer == null)
+            AdDTO ad = await uow.AdService.GetAdById(adId);
+            if (ad == null)
                 return NotFound();
 
-            if (jobOffer.IsActual)
-                return BadRequest("JobOffer is already blocked.");
+            if (ad.IsBlocked)
+                return BadRequest("Ad is already blocked.");
 
             var userName = User.Identity.GetUserName();
 
@@ -41,29 +41,29 @@ namespace WebApi.Controllers
             if (userName == null || !User.IsInRole("Moderator"))
                 return this.Unauthorized();
 
-            await uow.ModeratorService.BlockJobOffer(jobOfferId, userName);
+            await uow.ModeratorService.BlockAd(adId, userName);
 
-            return Ok("JobOffer is blocked");
+            return Ok("Ad is blocked");
         }
 
         [HttpGet]
-        [Route("unblock/jobOffer/{jobOfferId}")]
-        public async Task<IHttpActionResult> UnblockJobOffer([FromUri]int jobOfferId)
+        [Route("unblock/ads/{adId}")]
+        public async Task<IHttpActionResult> UnblockAd([FromUri]int adId)
         {
-            JobOfferDTO jobOffer = await uow.JobOfferService.GetJobOfferById(jobOfferId);
-            if (jobOffer == null)
+            AdDTO ad = await uow.AdService.GetAdById(adId);
+            if (ad == null)
                 return NotFound();
 
-            if (!jobOffer.IsActual)
-                return BadRequest("JobOffer is not blocked.");
+            if (!ad.IsBlocked)
+                return BadRequest("Ad is not blocked.");
 
             var userId = this.User.Identity.GetUserId();
             if (userId == null || !User.IsInRole("Admin"))
                 return this.Unauthorized();
 
 
-            await uow.ModeratorService.UnblockJobOffer(jobOfferId);
-            return Ok("JobOffer is unblocked");
+            await uow.ModeratorService.UnblockAd(adId);
+            return Ok("Ad is unblocked");
         }
     }
 }

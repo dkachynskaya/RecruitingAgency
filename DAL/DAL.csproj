@@ -87,7 +87,7 @@
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="Identity\IdentityModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
-    <Compile Include="Models\JobOffer.cs" />
+    <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

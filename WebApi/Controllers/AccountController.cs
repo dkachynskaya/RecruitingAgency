@@ -58,7 +58,7 @@ namespace WebApi.Controllers
                 return this.BadRequest("Invalid user data.");
             }
 
-            if (await uow.UserService.CheckLoginExist(model.Login))
+            if (await uow.UserService.IsLoginExist(model.Login))
             {
                 ModelState.AddModelError("Login", "Login is already taken.");
             }

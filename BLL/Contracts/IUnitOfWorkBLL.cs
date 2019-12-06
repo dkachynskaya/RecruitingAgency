@@ -9,7 +9,7 @@ namespace BLL.Contracts
     public interface IUnitOfWorkBLL
     {
         IAdminService AdminService { get; }
-        IJobOfferService JobOfferService { get; }
+        IAdService AdService { get; }
         IModeratorService ModeratorService { get; }
         IUserManagerService UserManagerService { get; }
         IUserService UserService { get; }

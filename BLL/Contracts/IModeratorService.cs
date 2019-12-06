@@ -8,7 +8,7 @@ namespace BLL.Contracts
 {
     public interface IModeratorService: IDisposable
     {
-        Task BlockJobOffer(int jobOfferId, string login);
-        Task UnblockJobOffer(int jobOfferId);
+        Task BlockAd(int adId, string login);
+        Task UnblockAd(int adId);
     }
 }

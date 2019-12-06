@@ -42,11 +42,11 @@ namespace BLL.Services
 
         public async Task Delete(int id)
         {
-            List<JobOffer> userJobOffers = new List<JobOffer>();
-            userJobOffers.AddRange(await uow.JobOffer.GetAll(x => x.UserId == id));
-            foreach(var j in userJobOffers)
+            List<Ad> userAds = new List<Ad>();
+            userAds.AddRange(await uow.Ad.GetAll(x => x.UserId == id));
+            foreach(var a in userAds)
             {
-                await uow.JobOffer.Delete(j.Id);
+                await uow.Ad.Delete(a.Id);
             }
 
             await uow.User.Delete(id);
@@ -62,7 +62,7 @@ namespace BLL.Services
             return AutoMapper.Mapper.Map<User, UserDTO>((await uow.User.GetAll(x => x.Login == login)).FirstOrDefault());
         }
 
-        public async Task<bool> CheckLoginExist(string login)
+        public async Task<bool> IsLoginExist(string login)
         {
             return (await uow.User.GetAll(x => x.Login == login)).Any();
         }

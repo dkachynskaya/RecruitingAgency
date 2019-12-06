@@ -29,11 +29,11 @@ namespace DAL.Models
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public virtual ICollection<JobOffer> JobOffers { get; set; }
+        public virtual ICollection<Ad> Ads { get; set; }
 
         public User()
         {
-            JobOffers = new List<JobOffer>();
+            Ads = new List<Ad>();
         }
     }
 }

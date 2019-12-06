@@ -14,7 +14,7 @@ namespace BLL.Infrastructure
     {
         public MapDTOModels()
         {
-            CreateMap<JobOffer, JobOfferDTO>().ReverseMap();
+            CreateMap<Ad, AdDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<ApplicationUser, UserDTO>();
 

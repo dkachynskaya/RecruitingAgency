@@ -215,7 +215,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\JobOfferController.cs" />
+    <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,8 +225,8 @@
     <Compile Include="Mapper\MapViewModels.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
-    <Compile Include="Models\JobOffer\JobOfferEditViewModel.cs" />
-    <Compile Include="Models\JobOffer\JobOfferViewModel.cs" />
+    <Compile Include="Models\Ad\AdEditViewModel.cs" />
+    <Compile Include="Models\Ad\AdViewModel.cs" />
     <Compile Include="Models\User\ChangePasswordViewModel.cs" />
     <Compile Include="Models\User\EditProfileViewModel.cs" />
     <Compile Include="Models\User\ProfileViewModel.cs" />

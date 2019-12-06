@@ -17,8 +17,8 @@ namespace WebApi.Mapper
             CreateMap<UserDTO, ProfileViewModel>();
             CreateMap<EditProfileViewModel, UserDTO>();
 
-            CreateMap<JobOfferDTO, JobOfferViewModel>();
-            CreateMap<JobOfferEditViewModel, JobOfferDTO>();
+            CreateMap<AdDTO, AdViewModel>();
+            CreateMap<AdEditViewModel, AdDTO>();
         }
     }
 }

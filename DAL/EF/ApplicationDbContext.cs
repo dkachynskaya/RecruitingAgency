@@ -15,7 +15,7 @@ namespace DAL.EF
     {
         static ApplicationDbContext()
         {
-            Database.SetInitializer<ApplicationDbContext>(new ContextInitializer());
+            Database.SetInitializer(new ContextInitializer());
         }
 
         public ApplicationDbContext(string connection)
@@ -23,11 +23,11 @@ namespace DAL.EF
         { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<JobOffer> JobOffers { get; set; }
+        public DbSet<Ad> Ads { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<JobOffer>().HasRequired(i => i.User).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Ad>().HasRequired(i => i.User).WithMany().WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -40,10 +40,10 @@ namespace WebApi.Controllers
 
             ProfileViewModel profileView = AutoMapper.Mapper.Map<UserDTO, ProfileViewModel>(profile);
 
-            var jobOffers = (await uow.JobOfferService.GetJobOffersByUserId(profile.Id)).ToList();
-            jobOffers.RemoveAll(x => x.IsActual == true);      // remove all Blocked post
+            var ads = (await uow.AdService.GetAdsByUserId(profile.Id)).ToList();
+            ads.RemoveAll(x => x.IsBlocked == true);      // remove all Blocked post
 
-            profileView.JobOffers = AutoMapper.Mapper.Map<IEnumerable<JobOfferDTO>, List<JobOfferViewModel>>(jobOffers);
+            profileView.Ads = AutoMapper.Mapper.Map<IEnumerable<AdDTO>, List<AdViewModel>>(ads);
             profileView.IsAdmin = User.IsInRole("Admin");
             profileView.IsModerator = User.IsInRole("Moderator");
 

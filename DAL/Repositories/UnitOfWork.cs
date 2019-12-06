@@ -15,7 +15,7 @@ namespace DAL.Repositories
         private readonly ApplicationDbContext context;
 
         private GenericRepository<User> users;
-        private GenericRepository<JobOffer> jobOffers;
+        private GenericRepository<Ad> ads;
 
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
@@ -37,15 +37,15 @@ namespace DAL.Repositories
             }
         }
 
-        public IGenericRepository<JobOffer> JobOffer
+        public IGenericRepository<Ad> Ad
         {
             get
             {
-                if(jobOffers == null)
+                if(ads == null)
                 {
-                    jobOffers = new GenericRepository<JobOffer>(context);
+                    ads = new GenericRepository<Ad>(context);
                 }
-                return jobOffers;
+                return ads;
             }
         }
 

@@ -14,6 +14,6 @@ namespace BLL.Contracts
         Task Delete(int userId);
         Task<UserDTO> GetUserById(int id);
         Task<UserDTO> GetUserByLogin(string login);
-        Task<bool> CheckLoginExist(string login);
+        Task<bool> IsLoginExist(string login);
     }
 }

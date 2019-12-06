@@ -12,7 +12,7 @@ namespace BLL.Services
     {
         private readonly IUnitOfWork uow;
         private AdminService adminService;
-        private JobOfferService jobOfferService;
+        private AdService adService;
         private ModeratorService moderatorService;
         private UserManagerService userManagerService;
         private UserService userService;
@@ -70,15 +70,15 @@ namespace BLL.Services
             }
         }
 
-        public IJobOfferService JobOfferService
+        public IAdService AdService
         {
             get
             {
-                if (jobOfferService == null)
+                if (adService == null)
                 {
-                    jobOfferService = new JobOfferService(uow);
+                    adService = new AdService(uow);
                 }
-                return jobOfferService;
+                return adService;
             }
         }
 

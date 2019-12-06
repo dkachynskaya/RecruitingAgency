@@ -14,7 +14,7 @@ namespace DAL.Contracts
         ApplicationRoleManager RoleManager { get; }
 
         IGenericRepository<User> User { get; }
-        IGenericRepository<JobOffer> JobOffer { get; }
+        IGenericRepository<Ad> Ad { get; }
 
         Task Save();
     }

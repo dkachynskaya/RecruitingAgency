@@ -17,24 +17,24 @@ namespace BLL.Services
             this.uow = uow;
         }
 
-        public async Task BlockJobOffer(int jobOfferId, string login)
+        public async Task BlockAd(int adId, string login)
         {
-            if (jobOfferId > 0 && login != null && login.Length > 3)
+            if (adId > 0 && login != null && login.Length > 3)
             {
-                JobOffer jobOffer = await uow.JobOffer.GetById(jobOfferId);
-                jobOffer.IsActual = true;
-                await uow.JobOffer.Update(jobOffer);
+                Ad ad = await uow.Ad.GetById(adId);
+                ad.IsBlocked = true;
+                await uow.Ad.Update(ad);
             }
             else throw new ArgumentException("Wrong data");
         }
 
-        public async Task UnblockJobOffer(int jobOfferId)
+        public async Task UnblockAd(int adId)
         {
-            if (jobOfferId > 0)
+            if (adId > 0)
             {
-                JobOffer jobOffer = await uow.JobOffer.GetById(jobOfferId);
-                jobOffer.IsActual = false;
-                await uow.JobOffer.Update(jobOffer);
+                Ad ad = await uow.Ad.GetById(adId);
+                ad.IsBlocked = false;
+                await uow.Ad.Update(ad);
             }
             else throw new ArgumentException("Wrong data");
         }
