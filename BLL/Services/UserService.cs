@@ -69,7 +69,7 @@ namespace BLL.Services
 
         public void Dispose()
         {
-            uow.Dispose();
+            uow?.Dispose();
         }
     }
 }

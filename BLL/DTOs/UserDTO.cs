@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DAL.Models;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.DTOs
 {

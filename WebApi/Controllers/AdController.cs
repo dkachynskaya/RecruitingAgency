@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -44,7 +43,7 @@ namespace WebApi.Controllers
         {
             var ad = (await uow.AdService.GetAdById(adId));
             if (ad == null)
-                NotFound();  //code 404         
+                NotFound();         
             AdViewModel Ad = AutoMapper.Mapper.Map<AdDTO, AdViewModel>(ad);
             return Ok(Ad);
         }
@@ -101,7 +100,7 @@ namespace WebApi.Controllers
                 PositionDescription = positionDescription,
                 CreateDate = DateTime.Now,
                 UserId = authtor.Id,
-                CategoryId = categoryId
+                CategoryId = 1
             };
 
             if (!this.ModelState.IsValid)

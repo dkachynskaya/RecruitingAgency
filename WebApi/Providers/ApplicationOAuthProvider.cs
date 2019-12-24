@@ -1,7 +1,4 @@
-﻿using System;
-using System.Security.Claims;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Claims;
 using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -60,7 +57,7 @@ namespace WebApi.Providers
             }
 
 
-            //cancellation any claims identity associated the the caller
+            //cancellation any claims identity associated the caller
             authenticationManager.SignOut();
 
             //grant a claims-based identity (token response) to the recipient of the response 

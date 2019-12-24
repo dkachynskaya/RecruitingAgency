@@ -6,7 +6,6 @@ using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Services
@@ -31,7 +30,7 @@ namespace BLL.Services
 
         public async Task CreateCategory(CategoryDTO categoryDTO)
         {
-            var category = AutoMapper.Mapper.Map<CategoryDTO, Category>(categoryDTO);
+            var category = Mapper.Map<CategoryDTO, Category>(categoryDTO);
             if (categoryDTO.Name.Length > 0)
             {
                 await uow.Category.Post(category);
@@ -41,7 +40,7 @@ namespace BLL.Services
 
         public async Task EditCategory(CategoryDTO categoryDTO)
         {
-            var category = AutoMapper.Mapper.Map<CategoryDTO, Category>(categoryDTO);
+            var category = Mapper.Map<CategoryDTO, Category>(categoryDTO);
             if (categoryDTO.Name.Length > 0)
             {
                 await uow.Category.Update(category);

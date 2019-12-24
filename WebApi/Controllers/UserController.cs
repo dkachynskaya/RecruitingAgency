@@ -1,11 +1,8 @@
 ﻿using BLL.Contracts;
 using BLL.DTOs;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebApi.Models.JobOffer;
@@ -41,7 +38,7 @@ namespace WebApi.Controllers
             ProfileViewModel profileView = AutoMapper.Mapper.Map<UserDTO, ProfileViewModel>(profile);
 
             var ads = (await uow.AdService.GetAdsByUserId(profile.Id)).ToList();
-            ads.RemoveAll(x => x.IsBlocked == true);      // remove all Blocked post
+            ads.RemoveAll(x => x.IsBlocked == true);     
 
             profileView.Ads = AutoMapper.Mapper.Map<IEnumerable<AdDTO>, List<AdViewModel>>(ads);
             profileView.IsAdmin = User.IsInRole("Admin");
